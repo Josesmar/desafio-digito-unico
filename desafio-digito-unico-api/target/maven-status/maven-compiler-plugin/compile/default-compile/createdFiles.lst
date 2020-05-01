@@ -1,0 +1,4 @@
+com\desafio\digitounico\DesafioApplication.class
+com\desafio\digitounico\controller\UsuarioController.class
+com\desafio\digitounico\ServletInitializer.class
+com\desafio\digitounico\controller\DigitoUnicoController.class

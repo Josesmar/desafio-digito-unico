@@ -1,0 +1,10 @@
+com\desafio\digitounico\dto\UsuarioDTO.class
+com\desafio\digitounico\repositories\DigitoUnicoRepository.class
+com\desafio\digitounico\utils\Nomenclatura.class
+com\desafio\digitounico\entities\Usuario.class
+com\desafio\digitounico\entities\Persistable.class
+com\desafio\digitounico\repositories\UsuarioRepository.class
+com\desafio\digitounico\dto\BaseDTO.class
+com\desafio\digitounico\entities\AuditableEntity.class
+com\desafio\digitounico\dto\DigitoUnicoDTO.class
+com\desafio\digitounico\entities\DigitoUnico.class
