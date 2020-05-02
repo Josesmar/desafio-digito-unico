@@ -1,4 +1,42 @@
-DU - Digito Único
+Digito Único (DU)
 
-Task 01
+[RELEASE/1.0.0]
+Task 01 (DU-01)
 - Commit inicial: Estrutura do projeto e criação de classes e interfaces
+
+[RELEASE/1.1.0]
+Task 02 (DU-02)
+- Desenvolvimento das entidades e DTOs
+
+Task 03 (DU-03)
+- Desenvolvimento dos converters
+
+Task 04 (DU-04)
+- Desenvolvimento dos repositórios e serviços
+
+[RELEASE/1.2.0]
+Task 05 (DU-05)
+- Desenvolvimento dos controllers, utilitários e validadores
+
+[RELEASE/1.3.0]
+Task 06 (DU-06)
+- Desenvolver a criptografia
+
+Task 07 (DU-07)
+- Desenvolver o cache
+
+Task 08 (DU-08)
+- Criação do script para subir o banco H2 na hora da execução do projeto
+
+[HOTFIX/1.2.1]
+Task 09 (DU-09)
+- Testes com o postman
+- Correções necessárias
+
+[RELEASE/1.4.0]
+Task 10 (DU-10)
+- Adicionar o postman_collection ao projeto
+
+Task 11 (DU-11)
+- Adicionar detalhamento do projeto ao readme
+
