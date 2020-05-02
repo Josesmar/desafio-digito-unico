@@ -27,7 +27,7 @@ import lombok.Setter;
 @Table(name = Nomenclatura.TABELA + "usuario")
 @Getter @Setter @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class DigitoUnico {
+public class DigitoUnico implements Persistable<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "digito_unico" + Nomenclatura.SEQUENCIA)

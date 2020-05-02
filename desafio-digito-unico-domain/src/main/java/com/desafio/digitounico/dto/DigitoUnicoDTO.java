@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DigitoUnicoDTO {
+public class DigitoUnicoDTO extends BaseDTO {
 
 	private Long id;
 	private String digitoParam;

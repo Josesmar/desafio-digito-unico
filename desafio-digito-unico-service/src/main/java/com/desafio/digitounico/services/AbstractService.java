@@ -9,11 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.desafio.digitounico.converters.Converter;
 import com.desafio.digitounico.dto.BaseDTO;
+import com.desafio.digitounico.entities.Persistable;
 
 import lombok.extern.slf4j.Slf4j;
 
