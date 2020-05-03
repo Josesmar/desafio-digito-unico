@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ParametrosDigitoDTO {
 
 	private Long idUsuario;
-	private Integer digitoParam;
+	private String digitoParam;
 	private Integer concatenacao;
 
 }
