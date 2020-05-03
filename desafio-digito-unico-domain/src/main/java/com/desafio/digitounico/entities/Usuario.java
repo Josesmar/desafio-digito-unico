@@ -25,27 +25,38 @@ import lombok.Setter;
 
 @Entity
 @Table(name = Nomenclatura.TABELA + "usuario")
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Usuario implements Persistable<Long> {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario" + Nomenclatura.SEQUENCIA)
-	@SequenceGenerator(name = "usuario" + Nomenclatura.SEQUENCIA, sequenceName = "usuario_id" + Nomenclatura.SEQUENCIA, allocationSize = 1)
-	@Column(name = Nomenclatura.CHAVE_PRIMARIA +"usuario", nullable = false)
+	@SequenceGenerator(name = "usuario" + Nomenclatura.SEQUENCIA, sequenceName = "usuario_id"
+			+ Nomenclatura.SEQUENCIA, allocationSize = 1)
+	@Column(name = Nomenclatura.CHAVE_PRIMARIA + "usuario", nullable = false)
 	private Long id;
-	
+
 	@NotBlank
 	@Size(min = 3, max = 100)
-	@Column(name = Nomenclatura.DESCRICAO +"nome", nullable = false)
+	@Column(name = Nomenclatura.DESCRICAO + "nome", nullable = false)
 	private String nome;
-	
+
 	@NotBlank
 	@Size(min = 3, max = 100)
-	@Column(name = Nomenclatura.DESCRICAO +"email", nullable = false)
+	@Column(name = Nomenclatura.DESCRICAO + "email", nullable = false)
 	private String email;
+
+	@Size(max = 100)
+	@Column(name = Nomenclatura.CRIPTOGRAFIA + "chave_publica")
+	private String chavePublica;
 	
+	@Size(min = 3, max = 100)
+	@Column(name = Nomenclatura.CRIPTOGRAFIA + "chave_privada")
+	private String chavePrivate;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", targetEntity = DigitoUnico.class)
 	private Set<DigitoUnico> digitos = new HashSet<>();
-	
+
 }

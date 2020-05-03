@@ -52,6 +52,18 @@ public class UsuarioService extends AbstractService<Usuario, UsuarioDTO, Long> {
 		log.debug(">> isValid [id={}] ", usuario.getId());
 		return result;
 	}
-
+	
+	public void criptografar(Long id, String chavePublica, String chavePrivada) {
+		// TO DO: criar um validador de chave no criptografia utils
+		// criar função no criptografia utils para criptografar (string -> byte)
+		// setar na entidade e salvar (repository.save)
+	}
+	
+	public Usuario descriptografar(Long id, String chavePrivada) {
+		Usuario entity = getRepository().findById(id).orElse(null);
+		// TO DO: criar função no criptografia utils para descriptografar (byte -> string)
+		// setar na entidade e salvar (repository.save)
+		return entity;
+	}
 
 }
