@@ -16,5 +16,5 @@ public interface DigitoUnicoRepository extends JpaRepository<DigitoUnico, Long> 
 	public List<DigitoUnico> findAllByUsuario(@Param("idUsuario") Long idUsuario); 
 	
 	@Query("SELECT DISTINCT (CASE WHEN du.id is null THEN false ELSE true END) FROM DigitoUnico du WHERE du.id = (:id)")
-	public boolean isValid(@Param("id") Long id);
+	public boolean validarDigito(@Param("id") Long id);
 }

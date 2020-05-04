@@ -39,22 +39,14 @@ public class Usuario implements Persistable<Long> {
 	private Long id;
 
 	@NotBlank
-	@Size(min = 3, max = 100)
+	@Size(min = 3, max = 1000)
 	@Column(name = Nomenclatura.DESCRICAO + "nome", nullable = false)
 	private String nome;
 
 	@NotBlank
-	@Size(min = 3, max = 100)
+	@Size(min = 3, max = 1000)
 	@Column(name = Nomenclatura.DESCRICAO + "email", nullable = false)
 	private String email;
-
-	@Size(max = 100)
-	@Column(name = Nomenclatura.CRIPTOGRAFIA + "chave_publica")
-	private String chavePublica;
-	
-	@Size(min = 3, max = 100)
-	@Column(name = Nomenclatura.CRIPTOGRAFIA + "chave_privada")
-	private String chavePrivate;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", targetEntity = DigitoUnico.class)
 	private Set<DigitoUnico> digitos = new HashSet<>();

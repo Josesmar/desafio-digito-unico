@@ -60,13 +60,13 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 	 * @param digitoUnico objeto utilizado para filtrar
 	 * @return true se for válido, false se for inválido
 	 */
-	public boolean isValid(DigitoUnicoDTO digitoUnico) {
+	public boolean validarDigito(DigitoUnicoDTO digitoUnico) {
 		if (Objects.isNull(digitoUnico)) {
 			return Boolean.FALSE;
 		}
-		log.debug(">> isValid [id={}] ", digitoUnico.getId());
-		boolean result = repository.isValid(digitoUnico.getId());
-		log.debug(">> isValid [id={}] ", digitoUnico.getId());
+		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
+		boolean result = repository.validarDigito(digitoUnico.getId());
+		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
 		return result;
 	}
 

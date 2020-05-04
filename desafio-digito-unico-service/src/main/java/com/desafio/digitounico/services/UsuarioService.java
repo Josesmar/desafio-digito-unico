@@ -13,6 +13,7 @@ import com.desafio.digitounico.converters.UsuarioConverter;
 import com.desafio.digitounico.dto.UsuarioDTO;
 import com.desafio.digitounico.entities.Usuario;
 import com.desafio.digitounico.repositories.UsuarioRepository;
+import com.desafio.digitounico.utils.CriptografiaUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,13 +21,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 public class UsuarioService extends AbstractService<Usuario, UsuarioDTO, Long> {
-	
+
 	@Autowired
 	private UsuarioRepository repository;
-	
+
 	@Autowired
 	private UsuarioConverter converter;
-	
+
 	@Override
 	protected JpaRepository<Usuario, Long> getRepository() {
 		return repository;
@@ -36,34 +37,39 @@ public class UsuarioService extends AbstractService<Usuario, UsuarioDTO, Long> {
 	protected Converter<Usuario, UsuarioDTO> getConverter() {
 		return this.converter;
 	}
-	
+
 	/**
 	 * Verificar se o dígito único é valido
 	 * 
 	 * @param usuario objeto utilizado para filtrar
 	 * @return true se for válido, false se for inválido
 	 */
-	public boolean isValid(UsuarioDTO usuario) {
+	public boolean validarUsuario(UsuarioDTO usuario) {
 		if (Objects.isNull(usuario)) {
 			return Boolean.FALSE;
 		}
-		log.debug(">> isValid [id={}] ", usuario.getId());
-		boolean result = repository.isValid(usuario.getId());
-		log.debug(">> isValid [id={}] ", usuario.getId());
+		log.debug(">> validarUsuario [id={}] ", usuario.getId());
+		boolean result = repository.validarUsuario(usuario.getId());
+		log.debug(">> validarUsuario [id={}] ", usuario.getId());
 		return result;
 	}
-	
-	public void criptografar(Long id, String chavePublica, String chavePrivada) {
-		// TO DO: criar um validador de chave no criptografia utils
-		// criar função no criptografia utils para criptografar (string -> byte)
-		// setar na entidade e salvar (repository.save)
+
+	public UsuarioDTO criptografar(Long id) {
+		log.debug(">> criptografar [id={}] ", id);
+		Usuario usuario = getRepository().findById(id).orElse(null);
+		Usuario usuarioCriptografado = getRepository().save(CriptografiaUtils.criptografar(usuario));
+		UsuarioDTO dto = converter.convertToDTO(usuarioCriptografado);
+		log.debug(">> criptografar [id={}] ", id);
+		return dto;
 	}
-	
-	public Usuario descriptografar(Long id, String chavePrivada) {
-		Usuario entity = getRepository().findById(id).orElse(null);
-		// TO DO: criar função no criptografia utils para descriptografar (byte -> string)
-		// setar na entidade e salvar (repository.save)
-		return entity;
+
+	public UsuarioDTO descriptografar(Long id) {
+		log.debug(">> descriptografar [id={}] ", id);
+		Usuario usuarioCriptografado = getRepository().findById(id).orElse(null);
+		Usuario usuario = getRepository().save(CriptografiaUtils.descriptografar(usuarioCriptografado));
+		UsuarioDTO dto = converter.convertToDTO(usuario);
+		log.debug("<< descriptografar [id={}] ", id);
+		return dto;
 	}
 
 }

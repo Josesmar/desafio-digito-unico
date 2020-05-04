@@ -5,7 +5,6 @@ public class Nomenclatura {
 	public static final String AUDITORIA = "aud_";
 	public static final String CHAVE_PRIMARIA = "id_";
 	public static final String CHAVE_SECUNDARIA = "fk_";
-	public static final String CRIPTOGRAFIA = "cp_";
 	public static final String DESCRICAO = "ds_";
 	public static final String NUMERICO = "nm_";
 	public static final String SEQUENCIA = "_sequence";

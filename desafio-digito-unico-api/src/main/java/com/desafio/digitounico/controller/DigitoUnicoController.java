@@ -63,7 +63,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 
 	public void salvarNovoDigito(ParametrosDigitoDTO paramDto, Integer digitoGerado) {
 		DigitoUnicoDTO dto = converter.convertParamToDTO(paramDto, digitoGerado);
-		if (service.isValid(dto)) {
+		if (service.validarDigito(dto)) {
 			log.debug(" >> create entity [dto={}] ", dto);
 			dto = getService().save(dto);
 			log.debug(" << create entity [dto={}, digitoGerado={}] ", paramDto, digitoGerado);

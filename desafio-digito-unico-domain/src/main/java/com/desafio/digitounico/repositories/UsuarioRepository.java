@@ -22,6 +22,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public Optional<Usuario> findById(@Param("id") Long id);
 
 	@Query("SELECT DISTINCT (CASE WHEN u.id IS NULL is null THEN false ELSE true END) FROM Usuario u WHERE u.id = (:id)")
-	public boolean isValid(@Param("id") Long id);
+	public boolean validarUsuario(@Param("id") Long id);
 
 }
