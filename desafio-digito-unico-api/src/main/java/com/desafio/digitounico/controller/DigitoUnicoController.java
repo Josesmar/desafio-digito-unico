@@ -1,5 +1,7 @@
 package com.desafio.digitounico.controller;
 
+import java.util.Objects;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.desafio.digitounico.dto.ParametrosDigitoDTO;
 import com.desafio.digitounico.entities.DigitoUnico;
 import com.desafio.digitounico.services.AbstractService;
 import com.desafio.digitounico.services.DigitoUnicoService;
+import com.desafio.digitounico.utils.CacheUtils;
 import com.desafio.digitounico.utils.DigitoUtils;
 import com.desafio.digitounico.utils.ValidatorUtils;
 
@@ -48,24 +51,30 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 		}
 		log.debug(" >> calcularDigitoUnico [dto={}] ", dto);
 		Integer digitoUnico = calcular(dto);
+		salvarNovoDigito(dto, digitoUnico);
 		log.debug(" << calcularDigitoUnico [dto={}, digitoUnico={}] ", dto, digitoUnico);
 		
 		return 1;
 	}
 
 	private Integer calcular(ParametrosDigitoDTO dto) {
-		StringBuilder digitoParam = new StringBuilder();
-		for (int i = 0; i < dto.getConcatenacao(); i++) {
-			digitoParam.append(dto.getDigitoParam());			
+		Integer digitoUnico = CacheUtils.buscar(dto.getDigitoParam(), dto.getConcatenacao());
+		if (Objects.isNull(digitoUnico)) {
+			StringBuilder digitoParam = new StringBuilder();
+			for (int i = 0; i < dto.getConcatenacao(); i++) {
+				digitoParam.append(dto.getDigitoParam());
+				digitoUnico = DigitoUtils.somarDigitos(digitoParam.toString());
+				CacheUtils.adicionar(dto.getDigitoParam(), dto.getConcatenacao(), digitoUnico);
+			}
 		}
-		return DigitoUtils.somarDigitos(digitoParam.toString());
+		return digitoUnico;
 	}
 
 	public void salvarNovoDigito(ParametrosDigitoDTO paramDto, Integer digitoGerado) {
 		DigitoUnicoDTO dto = converter.convertParamToDTO(paramDto, digitoGerado);
 		if (service.validarDigito(dto)) {
 			log.debug(" >> create entity [dto={}] ", dto);
-			dto = getService().save(dto);
+			getService().save(dto);
 			log.debug(" << create entity [dto={}, digitoGerado={}] ", paramDto, digitoGerado);
 		}
 	}

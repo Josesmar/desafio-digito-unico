@@ -16,6 +16,11 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com</groupId>
+			<artifactId>desafio-digito-unico-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
