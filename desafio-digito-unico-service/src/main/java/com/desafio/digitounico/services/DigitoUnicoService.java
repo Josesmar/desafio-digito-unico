@@ -6,8 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
@@ -15,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.desafio.digitounico.converters.Converter;
@@ -40,6 +37,9 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 
 	@Autowired
 	private DigitoUnicoConverter converter;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@Override
 	protected JpaRepository<DigitoUnico, Long> getRepository() {
@@ -60,17 +60,23 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		return dtos;
 	}
 
-	public boolean validarDigito(DigitoUnicoDTO digitoUnico) {
-		if (Objects.isNull(digitoUnico)) {
-			return Boolean.FALSE;
+	public DigitoUnicoDTO createDigito(ParametrosDigitoDTO paramDto, Integer digitoUnico) {
+		DigitoUnicoDTO dto = converter.convertParamToDTO(paramDto, digitoUnico);
+		DigitoUnicoDTO dtoSalvo = new DigitoUnicoDTO();
+		if (validarDigito(dto)) {
+			log.debug(" >> createDigito [dto={}] ", dto);
+			dtoSalvo = save(dto);
+			log.debug(" << createDigito [dto={}] ", dto);
 		}
-		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
-		boolean result = repository.validarDigito(digitoUnico.getId());
-		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
-		return result;
+		
+		return dtoSalvo;
 	}
-
-	public Integer calcularDigitoUnico(@Valid @RequestBody ParametrosDigitoDTO dto) {
+	
+	public Set<Entry<String, Integer>> cache() {
+		return CacheUtils.getCache();
+	}
+	
+	public Integer calcularDigitoUnico(ParametrosDigitoDTO dto) {
 		ResponseEntity<String> response = ValidatorUtils.validarParametros(dto);
 		if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
 			throw new ResponseStatusException(response.getStatusCode(), response.getBody());
@@ -82,40 +88,33 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		return digitoUnico;
 	}
 
-	private Integer calcular(ParametrosDigitoDTO dto) {
-		Integer digitoUnico = CacheUtils.buscar(dto.getDigitoParam(), dto.getConcatenacao());
+	private Integer calcular(ParametrosDigitoDTO paramDto) {
+		Integer digitoUnico = CacheUtils.buscar(paramDto.getDigitoParam(), paramDto.getConcatenacao());
 		if (Objects.isNull(digitoUnico)) {
 			StringBuilder digitoParam = new StringBuilder();
-			for (int i = 0; i < dto.getConcatenacao(); i++) {
-				digitoParam.append(dto.getDigitoParam());
+			for (int i = 0; i < paramDto.getConcatenacao(); i++) {
+				digitoParam.append(paramDto.getDigitoParam());
 				digitoUnico = DigitoUtils.somarDigitos(digitoParam.toString());
-				CacheUtils.adicionar(dto.getDigitoParam(), dto.getConcatenacao(), digitoUnico);
+				CacheUtils.adicionar(paramDto.getDigitoParam(), paramDto.getConcatenacao(), digitoUnico);
 			}
 		}
 		return digitoUnico;
 	}
 
-	public void salvarNovoDigito(ParametrosDigitoDTO paramDto, Integer digitoGerado) {
-		DigitoUnicoDTO dto = converter.convertParamToDTO(paramDto, digitoGerado);
-		if (validarDigito(dto)) {
-			log.debug(" >> create entity [dto={}] ", dto);
-			save(dto);
-			log.debug(" << create entity [dto={}, digitoGerado={}] ", paramDto, digitoGerado);
+	public boolean validarDigito(DigitoUnicoDTO digitoUnico) {
+		if (Objects.isNull(digitoUnico)) {
+			return Boolean.FALSE;
+		}
+		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
+		boolean result = repository.validarDigito(digitoUnico.getId());
+		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
+		return result;
+	}
+	
+	public void validarUsuario(Long idUsuario) {
+		boolean usuarioExists = usuarioService.validarUsuario(idUsuario);
+		if (!usuarioExists) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O usuário não existe!");
 		}
 	}
-
-	public Set<Entry<String, Integer>> cache() {
-		return CacheUtils.getCache();
-	}
-
-	public DigitoUnicoDTO createDigitoByUsuario(@Valid DigitoUnicoDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public DigitoUnicoDTO createDigito(@Valid ParametrosDigitoDTO dto, Integer digitoUnico) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

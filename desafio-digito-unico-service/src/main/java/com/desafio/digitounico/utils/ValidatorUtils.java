@@ -24,16 +24,9 @@ public class ValidatorUtils {
 
 	public static List<String> listarErrosParam(ParametrosDigitoDTO dto) {
 		List<String> list = new ArrayList<>();
-		if (Objects.isNull(dto.getIdUsuario())) {
-			list.add("O id usuário não pode ser nulo!");
-		}
 		
 		if (Objects.isNull(dto.getDigitoParam())) {
 			list.add("O dígito não pode ser nulo!");
-		}
-		
-		if (Objects.isNull(dto.getConcatenacao())) {
-			list.add("O nº de concatenações não pode ser nulo!");
 		}
 		
 		return list;
