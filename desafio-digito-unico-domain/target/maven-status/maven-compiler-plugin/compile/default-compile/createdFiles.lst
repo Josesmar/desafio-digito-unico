@@ -8,3 +8,5 @@ com\desafio\digitounico\dto\BaseDTO.class
 com\desafio\digitounico\entities\AuditableEntity.class
 com\desafio\digitounico\dto\DigitoUnicoDTO.class
 com\desafio\digitounico\entities\DigitoUnico.class
+com\desafio\digitounico\dto\CriptografiaDTO.class
+com\desafio\digitounico\dto\ParametrosDigitoDTO.class

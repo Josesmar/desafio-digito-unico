@@ -38,19 +38,13 @@ public class UsuarioService extends AbstractService<Usuario, UsuarioDTO, Long> {
 		return this.converter;
 	}
 
-	/**
-	 * Verificar se o dígito único é valido
-	 * 
-	 * @param usuario objeto utilizado para filtrar
-	 * @return true se for válido, false se for inválido
-	 */
-	public boolean validarUsuario(UsuarioDTO usuario) {
-		if (Objects.isNull(usuario)) {
+	public boolean validarUsuario(Long id) {
+		if (Objects.isNull(id)) {
 			return Boolean.FALSE;
 		}
-		log.debug(">> validarUsuario [id={}] ", usuario.getId());
-		boolean result = repository.validarUsuario(usuario.getId());
-		log.debug(">> validarUsuario [id={}] ", usuario.getId());
+		log.debug(">> validarUsuario [id={}] ", id);
+		boolean result = repository.validarUsuario(id);
+		log.debug(">> validarUsuario [id={}] ", id);
 		return result;
 	}
 

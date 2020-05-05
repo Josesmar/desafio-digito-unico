@@ -1,6 +1,8 @@
 package com.desafio.digitounico.utils;
 
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class CacheUtils {
 	
@@ -38,5 +40,9 @@ public class CacheUtils {
 	
 	private static boolean procurarChave(String chave) {
 		return CACHE.containsKey(chave);
+	}
+	
+	public static Set<Entry<String, Integer>> getCache() {
+		return CACHE.entrySet();
 	}
 }

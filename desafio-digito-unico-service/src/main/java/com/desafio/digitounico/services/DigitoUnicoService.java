@@ -1,7 +1,9 @@
 package com.desafio.digitounico.services;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ import com.desafio.digitounico.dto.DigitoUnicoDTO;
 import com.desafio.digitounico.dto.ParametrosDigitoDTO;
 import com.desafio.digitounico.entities.DigitoUnico;
 import com.desafio.digitounico.repositories.DigitoUnicoRepository;
+import com.desafio.digitounico.utils.CacheUtils;
 import com.desafio.digitounico.utils.DigitoUtils;
 import com.desafio.digitounico.utils.ValidatorUtils;
 
@@ -48,12 +51,6 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		return this.converter;
 	}
 
-	/**
-	 * Buscar lista de dígitos únicos por filtro de id de usuário
-	 * 
-	 * @param idUsuario id que filtra a pesquisa
-	 * @return lista de dígitos únicos filtrada por id de usuário
-	 */
 	public List<DigitoUnicoDTO> findAllByUsuario(Long idUsuario) {
 		List<DigitoUnico> entities = repository.findAllByUsuario(idUsuario);
 		log.debug(">> findAllByUsuario [entities={}] ", entities);
@@ -63,12 +60,6 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		return dtos;
 	}
 
-	/**
-	 * Verificar se o dígito único é valido
-	 * 
-	 * @param digitoUnico objeto utilizado para filtrar
-	 * @return true se for válido, false se for inválido
-	 */
 	public boolean validarDigito(DigitoUnicoDTO digitoUnico) {
 		if (Objects.isNull(digitoUnico)) {
 			return Boolean.FALSE;
@@ -81,15 +72,14 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 
 	public Integer calcularDigitoUnico(@Valid @RequestBody ParametrosDigitoDTO dto) {
 		ResponseEntity<String> response = ValidatorUtils.validarParametros(dto);
-		if(response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+		if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
 			throw new ResponseStatusException(response.getStatusCode(), response.getBody());
 		}
 		log.debug(" >> calcularDigitoUnico [dto={}] ", dto);
 		Integer digitoUnico = calcular(dto);
-		salvarNovoDigito(dto, digitoUnico);
 		log.debug(" << calcularDigitoUnico [dto={}, digitoUnico={}] ", dto, digitoUnico);
-		
-		return 1;
+
+		return digitoUnico;
 	}
 
 	private Integer calcular(ParametrosDigitoDTO dto) {
@@ -109,9 +99,23 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		DigitoUnicoDTO dto = converter.convertParamToDTO(paramDto, digitoGerado);
 		if (validarDigito(dto)) {
 			log.debug(" >> create entity [dto={}] ", dto);
-			getService().save(dto);
+			save(dto);
 			log.debug(" << create entity [dto={}, digitoGerado={}] ", paramDto, digitoGerado);
 		}
+	}
+
+	public Set<Entry<String, Integer>> cache() {
+		return CacheUtils.getCache();
+	}
+
+	public DigitoUnicoDTO createDigitoByUsuario(@Valid DigitoUnicoDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public DigitoUnicoDTO createDigito(@Valid ParametrosDigitoDTO dto, Integer digitoUnico) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

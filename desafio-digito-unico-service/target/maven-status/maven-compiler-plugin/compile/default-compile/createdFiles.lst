@@ -1,5 +1,5 @@
 com\desafio\digitounico\converters\Converter.class
+com\desafio\digitounico\utils\CacheUtils.class
 com\desafio\digitounico\converters\UsuarioConverter.class
 com\desafio\digitounico\services\AbstractService.class
 com\desafio\digitounico\services\UsuarioService.class
-com\desafio\digitounico\utils\ValidatorUtils.class
