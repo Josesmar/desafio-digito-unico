@@ -18,6 +18,9 @@ import com.desafio.digitounico.dto.BaseDTO;
 import com.desafio.digitounico.entities.Persistable;
 import com.desafio.digitounico.services.AbstractService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,7 +28,16 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 
 	protected abstract AbstractService<T, DTO, PK> getService();
 	
-	@GetMapping(value = "/")
+	@GetMapping(value = "/all")
+	@ResponseStatus(code = HttpStatus.OK)
+	@ApiOperation(httpMethod = "GET", 
+		value = "Listar todos", 
+		nickname = "getAll", 
+		tags = { "default", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Resultado da busca"),
+		@ApiResponse(code = 204, message = "Nenhum resultado foi encontrado!"),
+		@ApiResponse(code = 400, message = "Erro!")})
 	public List<DTO> getAll() {
 		log.debug(">> getAll {}");
 		List<DTO> entities = getService().findAll();
@@ -34,6 +46,14 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	}
 	
 	@GetMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	@ApiOperation(httpMethod = "GET", 
+		value = "Pesquisar por id", 
+		nickname = "getById", 
+		tags = { "default", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Encontrado com sucesso!"),
+		@ApiResponse(code = 400, message = "O id pesquisado não existe!")})
 	public DTO getById(@PathVariable PK id) {
 		log.debug(">> getById {}", id);
 		DTO entity = getService().findById(id);
@@ -43,6 +63,13 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	
 	@PostMapping(value = "/")
 	@ResponseStatus(code = HttpStatus.CREATED)
+	@ApiOperation(httpMethod = "POST", 
+		value = "Criar novo", 
+		nickname = "create", 
+		tags = { "default", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 201, message = "Criado com sucesso!"),
+		@ApiResponse(code = 400, message = "Falha ao criar")})
 	public void create(@Valid @RequestBody DTO entity){
 		log.debug(" >> create entity {} ", entity);
 		entity = getService().save(entity);
@@ -51,6 +78,13 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
+	@ApiOperation(httpMethod = "PUT", 
+		value = "Atualizar por id", 
+		nickname = "update", 
+		tags = { "default", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 201, message = "Atualizado com sucesso!"),
+		@ApiResponse(code = 400, message = "Falha ao atualizar")})
 	public void update(@PathVariable(value = "id", required = true) PK id, @Valid @RequestBody DTO entity){
 		log.debug(" >> create entity {} ", entity);
 		entity = getService().update(id, entity);
@@ -58,6 +92,14 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	}
 	
 	@DeleteMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	@ApiOperation(httpMethod = "DELETE", 
+		value = "Deletar por id", 
+		nickname = "delete", 
+		tags = { "default", })
+	@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Deletado com sucesso!"),
+		@ApiResponse(code = 400, message = "Falha ao deletar!")})
 	public void deleteById(@PathVariable PK id) {
 		log.debug(">> getById {}", id);
 		getService().delete(id);
