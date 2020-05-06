@@ -92,25 +92,13 @@ public class DigitoUnicoControllerTest {
                 .andExpect(status().isOk());
 
     }
-	@Test
-	public void findAll() throws Exception {
-		DigitoUnicoDTO dto = DigitoUnicoDTO.builder().id(ID).digitoParam(DIGITOPARAM).concatenacao(CONCATENACAO).digitoGerado(DIGITOGERADO).idUsuario(ID).build();
-		List<DigitoUnicoDTO> digitos = Arrays.asList(dto);
-
-		given(controller.getAll()).willReturn(digitos);
-		
-		mvc.perform(get(URL + "/{id}")
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
-	}
 	
 	@Test
-	public void findAllDigitosByUsuario() throws Exception {
+	public void getAllByUsuario() throws Exception {
 		DigitoUnicoDTO dto = DigitoUnicoDTO.builder().id(ID).digitoParam(DIGITOPARAM).concatenacao(CONCATENACAO).digitoGerado(DIGITOGERADO).idUsuario(ID).build();
 		List<DigitoUnicoDTO> digitos = Arrays.asList(dto);
 
-		given(controller.findAllByUsuario(ID)).willReturn(digitos);
+		given(controller.getAllByUsuario(ID)).willReturn(digitos);
 		
 		mvc.perform(get(URL + "/{id}")
 				.accept(MediaType.APPLICATION_JSON)

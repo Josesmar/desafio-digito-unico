@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "3044b8f7-cc2a-4cf0-bebe-1c9a5e631bc6",
+		"name": "postman_collection",
+		"description": "Testar endpoints da API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createUsuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Jessica\",\n\t\"email\": \"jessicacris.lm@gmail.com\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						""
+					]
+				},
+				"description": "Criar novo usuário"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsuarios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						"all"
+					]
+				},
+				"description": "Listar todos os usuários"
+			},
+			"response": []
+		},
+		{
+			"name": "getUsuarioById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						"1"
+					]
+				},
+				"description": "Pesquisa um usuário por id"
+			},
+			"response": []
+		},
+		{
+			"name": "updateUsuario",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true,
+					"content-length": true,
+					"host": true,
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nome\": \"Jessica Machado\",\n\t\"email\": \"jessiclm@hotmail\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						"1"
+					]
+				},
+				"description": "Atualizar usuário por id"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUsuario",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true,
+					"user-agent": true,
+					"accept": true,
+					"accept-encoding": true,
+					"connection": true
+				}
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						"1"
+					]
+				},
+				"description": "Deletar um usuário pelo id"
+			},
+			"response": []
+		},
+		{
+			"name": "createDigitos",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"digitoParam\": \"123\",\n\t\"concatenacao\": 2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/calcular",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"calcular"
+					]
+				},
+				"description": "Criar novo dígito"
+			},
+			"response": []
+		},
+		{
+			"name": "createDigitoByUsuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"digitoParam\": \"321\",\n\t\"concatenacao\": 3,\n\t\"idUsuario\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/calcular/usuario",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"calcular",
+						"usuario"
+					]
+				},
+				"description": "Criar novo dígito pelo id de usuário"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllDigitos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"all"
+					]
+				},
+				"description": "Listar todos os dígitos"
+			},
+			"response": []
+		},
+		{
+			"name": "getDigitoById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"1"
+					]
+				},
+				"description": "Pesquisa um dígito por id"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllDigitosByUsuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/all/usuario/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"all",
+						"usuario",
+						"1"
+					]
+				},
+				"description": "Lista todos os dígitos de um usuário."
+			},
+			"response": []
+		},
+		{
+			"name": "updateDigito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"digitoParam\": \"321\",\n\t\"concatenacao\": 3,\n\t\"idUsuario\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"1"
+					]
+				},
+				"description": "Atualizar dígito por id"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteDigitoUnico",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/digitounico/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"digitounico",
+						"1"
+					]
+				},
+				"description": "Deletar um dígito pelo id"
+			},
+			"response": []
+		},
+		{
+			"name": "criptografarUsuario",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/1/criptografar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						"1",
+						"criptografar"
+					]
+				},
+				"description": "Criptografar os atributos do usuário"
+			},
+			"response": []
+		},
+		{
+			"name": "descriptografarUsuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuario/1/descriptografar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuario",
+						"1",
+						"descriptografar"
+					]
+				},
+				"description": "Descriptografar os atributos do usuário"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -49,8 +49,8 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		return this.converter;
 	}
 
-	public List<DigitoUnicoDTO> findAllByUsuario(Long idUsuario) {
-		List<DigitoUnico> entities = repository.findAllByUsuario(idUsuario);
+	public List<DigitoUnicoDTO> getAllByUsuario(Long idUsuario) {
+		List<DigitoUnico> entities = repository.getAllByUsuario(idUsuario);
 		log.debug(">> findAllByUsuario [entities={}] ", entities);
 		List<DigitoUnicoDTO> dtos = entities.parallelStream().map(entity -> converter.convertToDTO(entity))
 				.collect(Collectors.toList());

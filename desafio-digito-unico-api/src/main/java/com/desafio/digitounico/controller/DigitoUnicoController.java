@@ -45,20 +45,20 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 		return this.service;
 	}
 	
-	@GetMapping("/findAllByUsuario/{id}")
+	@GetMapping("/all/usuario/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	@ApiOperation(httpMethod = "GET", 
 		value = "Listar todos os dígitos de um usuário específico", 
-		nickname = "findAllByUsuario", 
+		nickname = "getAllByUsuario", 
 		tags = { "digitounico", })
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Lista de dígitos"),
 		@ApiResponse(code = 204, message = "Nenhum dígito encontrado!"),
 		@ApiResponse(code = 400, message = "Erro!")})
-	public List<DigitoUnicoDTO> findAllByUsuario (@PathVariable(value = "id") Long id) {
+	public List<DigitoUnicoDTO> getAllByUsuario (@PathVariable(value = "id") Long id) {
 		log.debug(" >> findAllByUsuario [id={}] ", id);
 		service.validarUsuario(id);
-		List<DigitoUnicoDTO> list = service.findAllByUsuario(id);
+		List<DigitoUnicoDTO> list = service.getAllByUsuario(id);
 		log.debug(" << findAllByUsuario [id={}] ", id);
 		return list;
 	}
