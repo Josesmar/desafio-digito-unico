@@ -65,7 +65,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 		return list;
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/calcular")
 	@ApiOperation(httpMethod = "POST", 
 		value = "Criar um dígito", 
 		nickname = "createDigito", 
@@ -81,7 +81,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 		return new ResponseEntity<>(dtoCriado, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/usuario")
+	@PostMapping("/calcular/usuario")
 	@ApiOperation(httpMethod = "POST", 
 		value = "Criar um dígito para um usuário específico", 
 		nickname = "createDigitoByUsuario", 

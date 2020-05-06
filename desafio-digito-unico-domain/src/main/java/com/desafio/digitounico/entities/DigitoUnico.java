@@ -45,7 +45,7 @@ public class DigitoUnico implements Persistable<Long> {
 	private Integer concatenacao;
 	
 	@Min(1)
-	@Column(name = Nomenclatura.NUMERICO + "concatenacao", nullable = false)
+	@Column(name = Nomenclatura.NUMERICO + "digitoGerado", nullable = false)
 	private Integer digitoGerado;
 	
 	@NotNull

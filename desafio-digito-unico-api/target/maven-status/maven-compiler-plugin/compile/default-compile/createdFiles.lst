@@ -1,3 +1,5 @@
+com\desafio\digitounico\controller\AbstractController.class
+com\desafio\digitounico\config\SwaggerConfig.class
 com\desafio\digitounico\DesafioApplication.class
 com\desafio\digitounico\controller\UsuarioController.class
 com\desafio\digitounico\ServletInitializer.class

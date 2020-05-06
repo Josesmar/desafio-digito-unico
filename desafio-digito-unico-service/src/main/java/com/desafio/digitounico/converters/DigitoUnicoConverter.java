@@ -2,6 +2,7 @@ package com.desafio.digitounico.converters;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.desafio.digitounico.dto.DigitoUnicoDTO;
 import com.desafio.digitounico.dto.ParametrosDigitoDTO;
@@ -9,6 +10,7 @@ import com.desafio.digitounico.entities.DigitoUnico;
 import com.desafio.digitounico.entities.Usuario;
 import com.desafio.digitounico.repositories.UsuarioRepository;
 
+@Component
 public class DigitoUnicoConverter implements Converter<DigitoUnico, DigitoUnicoDTO> {
 
 	@Autowired
