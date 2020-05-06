@@ -30,13 +30,15 @@ Task 08 (DU-08)
 
 [HOTFIX/1.2.1]
 Task 09 (DU-09)
-- Testes com o postman
 - Correções necessárias
 
-[RELEASE/1.4.0]
 Task 10 (DU-10)
+- Testes unitários e com o postman
+
+[RELEASE/1.4.0]
+Task 11 (DU-11)
 - Adicionar o postman_collection ao projeto
 
-Task 11 (DU-11)
+Task 12 (DU-12)
 - Adicionar detalhamento do projeto ao readme
 

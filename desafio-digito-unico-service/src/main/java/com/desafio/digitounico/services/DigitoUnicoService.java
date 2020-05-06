@@ -1,9 +1,7 @@
 package com.desafio.digitounico.services;
 
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +68,6 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		}
 		
 		return dtoSalvo;
-	}
-	
-	public Set<Entry<String, Integer>> cache() {
-		return CacheUtils.getCache();
 	}
 	
 	public Integer calcularDigitoUnico(ParametrosDigitoDTO dto) {

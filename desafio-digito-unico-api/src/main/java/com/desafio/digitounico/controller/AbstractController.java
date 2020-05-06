@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +63,6 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	}
 	
 	@PostMapping(value = "/")
-	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(httpMethod = "POST", 
 		value = "Criar novo", 
 		nickname = "create", 
@@ -70,14 +70,14 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	@ApiResponses(value = { 
 		@ApiResponse(code = 201, message = "Criado com sucesso!"),
 		@ApiResponse(code = 400, message = "Falha ao criar")})
-	public void create(@Valid @RequestBody DTO entity){
+	public ResponseEntity<DTO> create(@Valid @RequestBody DTO entity){
 		log.debug(" >> create entity {} ", entity);
 		entity = getService().save(entity);
 		log.debug(" << create entity {} ", entity);
+		return new ResponseEntity<>(entity, HttpStatus.CREATED);
 	}
 	
 	@PutMapping(value = "/{id}")
-	@ResponseStatus(code = HttpStatus.OK)
 	@ApiOperation(httpMethod = "PUT", 
 		value = "Atualizar por id", 
 		nickname = "update", 
@@ -85,14 +85,14 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	@ApiResponses(value = { 
 		@ApiResponse(code = 201, message = "Atualizado com sucesso!"),
 		@ApiResponse(code = 400, message = "Falha ao atualizar")})
-	public void update(@PathVariable(value = "id", required = true) PK id, @Valid @RequestBody DTO entity){
+	public ResponseEntity<DTO> update(@PathVariable(value = "id", required = true) PK id, @Valid @RequestBody DTO entity){
 		log.debug(" >> create entity {} ", entity);
 		entity = getService().update(id, entity);
 		log.debug(" << create entity {} ", entity);
+		return new ResponseEntity<>(entity, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	@ResponseStatus(code = HttpStatus.OK)
 	@ApiOperation(httpMethod = "DELETE", 
 		value = "Deletar por id", 
 		nickname = "delete", 
@@ -100,9 +100,10 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 	@ApiResponses(value = { 
 		@ApiResponse(code = 200, message = "Deletado com sucesso!"),
 		@ApiResponse(code = 400, message = "Falha ao deletar!")})
-	public void deleteById(@PathVariable PK id) {
+	public ResponseEntity<PK> deleteById(@PathVariable PK id) {
 		log.debug(">> getById {}", id);
 		getService().delete(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
 

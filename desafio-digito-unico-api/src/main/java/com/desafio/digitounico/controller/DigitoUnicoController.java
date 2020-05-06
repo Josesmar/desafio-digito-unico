@@ -1,8 +1,6 @@
 package com.desafio.digitounico.controller;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -22,7 +20,6 @@ import com.desafio.digitounico.dto.ParametrosDigitoDTO;
 import com.desafio.digitounico.entities.DigitoUnico;
 import com.desafio.digitounico.services.AbstractService;
 import com.desafio.digitounico.services.DigitoUnicoService;
-import com.desafio.digitounico.utils.CacheUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -42,6 +39,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 	@Autowired
 	DigitoUnicoConverter converter;
 	
+
 	@Override
 	protected AbstractService<DigitoUnico, DigitoUnicoDTO, Long> getService() {
 		return this.service;
@@ -77,7 +75,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 		log.debug(" >> createDigito [dto={}] ", dto);
 		Integer digitoUnico = service.calcularDigitoUnico(dto);
 		DigitoUnicoDTO dtoCriado = service.createDigito(dto, digitoUnico);
-		log.debug(" << createDigitoByUsuario [dto={}] ", dto);
+		log.debug(" << createDigito [dto={}] ", dto);
 		return new ResponseEntity<>(dtoCriado, HttpStatus.CREATED);
 	}
 	
@@ -97,19 +95,5 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 		log.debug(" << createDigitoByUsuario [dto={}] ", dto);
 		return new ResponseEntity<>(dtoCriado, HttpStatus.CREATED);
 	}
-	
-	@GetMapping("/cache")
-	@ResponseStatus(code = HttpStatus.OK)
-	@ApiOperation(httpMethod = "GET", 
-		value = "Cache dos últimos 10 dígitos gerados", 
-		nickname = "cache", 
-		tags = { "digitounico", })
-	@ApiResponses(value = { 
-		@ApiResponse(code = 200, message = "Dígitos armazenados no cache"),
-		@ApiResponse(code = 204, message = "Cache vazio!"),
-		@ApiResponse(code = 400, message = "Erro!")})
-	public Set<Map.Entry<String, Integer>> cache(){
-        return CacheUtils.getCache();
-    }
 	
 }
