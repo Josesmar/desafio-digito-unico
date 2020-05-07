@@ -34,11 +34,9 @@ Task 09 (DU-09)
 
 Task 10 (DU-10)
 - Testes unitários e com o postman
+- Adicionar o postman_collection ao projeto
 
 [RELEASE/1.4.0]
 Task 11 (DU-11)
-- Adicionar o postman_collection ao projeto
-
-Task 12 (DU-12)
 - Adicionar detalhamento do projeto ao readme
 
