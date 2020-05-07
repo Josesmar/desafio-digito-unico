@@ -40,8 +40,9 @@ public class CriptografiaUtils {
 		}
 	}
 
-	public static Usuario criptografar(Usuario usuario) {
+	public static Usuario criptografar(Usuario usuario) throws GeneralSecurityException {
 		log.debug(" >> CriptografiaService.criptografar [entity={}] ", usuario.getClass().getName());
+		gerarChaves(usuario.getId());
 		PublicKey chavePublica = keys.get(usuario.getId()).getPublic();
 		usuario.setNome(criptografarTexto(usuario.getNome(), chavePublica));
 		usuario.setEmail(criptografarTexto(usuario.getEmail(), chavePublica));
@@ -66,6 +67,7 @@ public class CriptografiaUtils {
 		PrivateKey chavePrivada = keys.get(usuario.getId()).getPrivate();
 		usuario.setNome(descriptografarTexto(usuario.getNome(), chavePrivada));
 		usuario.setEmail(descriptografarTexto(usuario.getEmail(), chavePrivada));
+		keys.remove(usuario.getId());
 		return usuario;
 	}
 
@@ -81,7 +83,7 @@ public class CriptografiaUtils {
 		}
 	}
 	
-	public static boolean checarUsuario(Long idUsuario) {
-		return keys.containsKey(idUsuario);
+	public static boolean usuarioPossuiChave(Long idUsuario) {
+		return !keys.isEmpty() && keys.containsKey(idUsuario);
 	}
 }

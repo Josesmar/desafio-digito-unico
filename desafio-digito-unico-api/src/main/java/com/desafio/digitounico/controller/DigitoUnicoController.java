@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,7 +72,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 	@ApiResponses(value = { 
 		@ApiResponse(code = 201, message = "Dígito criado com sucesso"),
 		@ApiResponse(code = 400, message = "Falha ao criar o dígito")})
-	public ResponseEntity<DigitoUnicoDTO> createDigito(@Valid ParametrosDigitoDTO dto) {
+	public ResponseEntity<DigitoUnicoDTO> createDigito(@Valid @RequestBody ParametrosDigitoDTO dto) {
 		log.debug(" >> createDigito [dto={}] ", dto);
 		Integer digitoUnico = service.calcularDigitoUnico(dto);
 		DigitoUnicoDTO dtoCriado = service.createDigito(dto, digitoUnico);
@@ -87,7 +88,7 @@ public class DigitoUnicoController extends AbstractController<DigitoUnico, Digit
 	@ApiResponses(value = { 
 		@ApiResponse(code = 201, message = "Dígito criado com sucesso"),
 		@ApiResponse(code = 400, message = "Falha ao criar o dígito")})
-	public ResponseEntity<DigitoUnicoDTO> createDigitoByUsuario(@Valid ParametrosDigitoDTO dto) {
+	public ResponseEntity<DigitoUnicoDTO> createDigitoByUsuario(@Valid @RequestBody ParametrosDigitoDTO dto) {
 		log.debug(" >> createDigitoByUsuario [dto={}] ", dto);
 		service.validarUsuario(dto.getIdUsuario());
 		Integer digitoUnico = service.calcularDigitoUnico(dto);

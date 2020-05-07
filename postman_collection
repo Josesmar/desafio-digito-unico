@@ -9,7 +9,7 @@
 		{
 			"name": "createUsuario",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Jessica\",\n\t\"email\": \"jessicacris.lm@gmail.com\"\n\t\n}"
+					"raw": "{\n\t\"nome\": \"Jessica\",\n\t\"email\": \"jessicacris.lm@gmail.com\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/usuario/",
@@ -100,17 +100,11 @@
 			"name": "updateUsuario",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
-					"content-type": true,
-					"content-length": true,
-					"host": true,
-					"user-agent": true,
-					"accept": true,
-					"accept-encoding": true,
-					"connection": true
+					"content-type": true
 				}
 			},
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -120,7 +114,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nome\": \"Jessica Machado\",\n\t\"email\": \"jessiclm@hotmail\"\n}"
+					"raw": "{\n\t\"id\": 1,\n\t\"nome\": \"Jessica Machado\",\n\t\"email\": \"jessiclm@hotmail\",\n    \"digitos\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/usuario/1",
@@ -142,13 +141,7 @@
 		{
 			"name": "deleteUsuario",
 			"protocolProfileBehavior": {
-				"disabledSystemHeaders": {
-					"host": true,
-					"user-agent": true,
-					"accept": true,
-					"accept-encoding": true,
-					"connection": true
-				}
+				"disabledSystemHeaders": {}
 			},
 			"request": {
 				"method": "DELETE",
@@ -158,7 +151,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/usuario/1",
+					"raw": "http://localhost:8080/api/usuario/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -167,7 +160,7 @@
 					"path": [
 						"api",
 						"usuario",
-						"1"
+						"2"
 					]
 				},
 				"description": "Deletar um usuário pelo id"
@@ -175,9 +168,9 @@
 			"response": []
 		},
 		{
-			"name": "createDigitos",
+			"name": "createDigito",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -209,7 +202,7 @@
 		{
 			"name": "createDigitoByUsuario",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -325,32 +318,6 @@
 					]
 				},
 				"description": "Lista todos os dígitos de um usuário."
-			},
-			"response": []
-		},
-		{
-			"name": "updateDigito",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \n\t\"digitoParam\": \"321\",\n\t\"concatenacao\": 3,\n\t\"idUsuario\": 1\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/digitounico/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"digitounico",
-						"1"
-					]
-				},
-				"description": "Atualizar dígito por id"
 			},
 			"response": []
 		},

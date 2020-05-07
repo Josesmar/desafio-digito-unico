@@ -1,5 +1,7 @@
 package com.desafio.digitounico.controller;
 
+import java.security.GeneralSecurityException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +49,7 @@ public class UsuarioController extends AbstractController<Usuario, UsuarioDTO, L
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Usuário criptografado com sucesso!"),
 			@ApiResponse(code = 400, message = "Falha ao criptografar usuário") })
-	public ResponseEntity<UsuarioDTO> criptografarDadosUsuario(@PathVariable(value = "id", required = true) Long id) {
+	public ResponseEntity<UsuarioDTO> criptografarDadosUsuario(@PathVariable(value = "id", required = true) Long id) throws GeneralSecurityException {
 		ResponseEntity<String> response = ValidatorUtils.validarCriptografiaUsuario(id, Boolean.TRUE);
 		if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
 			throw new ResponseStatusException(response.getStatusCode(), response.getBody());

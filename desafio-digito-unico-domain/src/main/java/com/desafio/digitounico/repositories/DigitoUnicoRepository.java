@@ -15,6 +15,6 @@ public interface DigitoUnicoRepository extends JpaRepository<DigitoUnico, Long> 
 	@Query("SELECT DISTINCT du FROM DigitoUnico du WHERE du.usuario.id = (:idUsuario)")
 	public List<DigitoUnico> getAllByUsuario(@Param("idUsuario") Long idUsuario); 
 	
-	@Query("SELECT DISTINCT (CASE WHEN du.id is null THEN false ELSE true END) FROM DigitoUnico du WHERE du.id = (:id)")
-	public boolean validarDigito(@Param("id") Long id);
+	@Query("SELECT DISTINCT COUNT(du.id) FROM DigitoUnico du WHERE du.digitoGerado = (:digitoGerado)")
+	public int validarDigito(@Param("digitoGerado") Integer digitoGerado);
 }

@@ -35,7 +35,7 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 
 	@Autowired
 	private DigitoUnicoConverter converter;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -59,17 +59,19 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 	}
 
 	public DigitoUnicoDTO createDigito(ParametrosDigitoDTO paramDto, Integer digitoUnico) {
-		DigitoUnicoDTO dto = converter.convertParamToDTO(paramDto, digitoUnico);
+		DigitoUnicoDTO dto = DigitoUnicoDTO.builder().digitoParam(paramDto.getDigitoParam())
+				.concatenacao(paramDto.getConcatenacao()).digitoGerado(digitoUnico).idUsuario(paramDto.getIdUsuario())
+				.build();
 		DigitoUnicoDTO dtoSalvo = new DigitoUnicoDTO();
 		if (validarDigito(dto)) {
 			log.debug(" >> createDigito [dto={}] ", dto);
 			dtoSalvo = save(dto);
 			log.debug(" << createDigito [dto={}] ", dto);
 		}
-		
+
 		return dtoSalvo;
 	}
-	
+
 	public Integer calcularDigitoUnico(ParametrosDigitoDTO dto) {
 		ResponseEntity<String> response = ValidatorUtils.validarParametros(dto);
 		if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
@@ -85,12 +87,8 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 	private Integer calcular(ParametrosDigitoDTO paramDto) {
 		Integer digitoUnico = CacheUtils.buscar(paramDto.getDigitoParam(), paramDto.getConcatenacao());
 		if (Objects.isNull(digitoUnico)) {
-			StringBuilder digitoParam = new StringBuilder();
-			for (int i = 0; i < paramDto.getConcatenacao(); i++) {
-				digitoParam.append(paramDto.getDigitoParam());
-				digitoUnico = DigitoUtils.somarDigitos(digitoParam.toString());
-				CacheUtils.adicionar(paramDto.getDigitoParam(), paramDto.getConcatenacao(), digitoUnico);
-			}
+			digitoUnico = DigitoUtils.calcular(paramDto.getDigitoParam(), paramDto.getConcatenacao());
+			CacheUtils.adicionar(paramDto.getDigitoParam(), paramDto.getConcatenacao(), digitoUnico);
 		}
 		return digitoUnico;
 	}
@@ -99,12 +97,12 @@ public class DigitoUnicoService extends AbstractService<DigitoUnico, DigitoUnico
 		if (Objects.isNull(digitoUnico)) {
 			return Boolean.FALSE;
 		}
-		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
-		boolean result = repository.validarDigito(digitoUnico.getId());
-		log.debug(">> validarDigito [id={}] ", digitoUnico.getId());
+		log.debug(">> validarDigito [id={}] ", digitoUnico.getDigitoGerado());
+		boolean result = Objects.nonNull(digitoUnico.getDigitoGerado()) && repository.validarDigito(digitoUnico.getDigitoGerado()) == 0;
+		log.debug(">> validarDigito [id={}] ", digitoUnico.getDigitoGerado());
 		return result;
 	}
-	
+
 	public void validarUsuario(Long idUsuario) {
 		boolean usuarioExists = usuarioService.validarUsuario(idUsuario);
 		if (!usuarioExists) {

@@ -77,13 +77,13 @@ public abstract class AbstractController<T extends Persistable<PK>, DTO extends 
 		return new ResponseEntity<>(entity, HttpStatus.CREATED);
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping("/{id}")
 	@ApiOperation(httpMethod = "PUT", 
 		value = "Atualizar por id", 
 		nickname = "update", 
 		tags = { "default", })
 	@ApiResponses(value = { 
-		@ApiResponse(code = 201, message = "Atualizado com sucesso!"),
+		@ApiResponse(code = 200, message = "Atualizado com sucesso!"),
 		@ApiResponse(code = 400, message = "Falha ao atualizar")})
 	public ResponseEntity<DTO> update(@PathVariable(value = "id", required = true) PK id, @Valid @RequestBody DTO entity){
 		log.debug(" >> create entity {} ", entity);

@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.desafio.digitounico.utils.Nomenclatura;
@@ -24,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = Nomenclatura.TABELA + "usuario")
+@Table(name = Nomenclatura.TABELA + "digito_unico")
 @Getter @Setter @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class DigitoUnico implements Persistable<Long> {
@@ -35,21 +33,19 @@ public class DigitoUnico implements Persistable<Long> {
 	@Column(name = Nomenclatura.CHAVE_PRIMARIA +"digito_unico", nullable = false)
 	private Long id;
 	
-	@NotBlank
 	@Size(min = 3, max = 100)
 	@Column(name = Nomenclatura.DESCRICAO +"digito", nullable = false)
 	private String digitoParam;
 	
 	@Min(1)
-	@Column(name = Nomenclatura.NUMERICO + "concatenacao", nullable = false)
+	@Column(name = Nomenclatura.NUMERICO + "concatenacao", nullable = true)
 	private Integer concatenacao;
 	
 	@Min(1)
 	@Column(name = Nomenclatura.NUMERICO + "digitoGerado", nullable = false)
 	private Integer digitoGerado;
 	
-	@NotNull
-	@JoinColumn(name = Nomenclatura.CHAVE_PRIMARIA + "usuario", nullable = false, 
+	@JoinColumn(name = Nomenclatura.CHAVE_PRIMARIA + "usuario", nullable = true, 
 				foreignKey = @ForeignKey(name = Nomenclatura.CHAVE_SECUNDARIA + "digito_unico_usuario"))
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;

@@ -21,7 +21,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("SELECT DISTINCT u FROM Usuario u LEFT JOIN FETCH u.digitos WHERE u.id = (:id)")
 	public Optional<Usuario> findById(@Param("id") Long id);
 
-	@Query("SELECT DISTINCT (CASE WHEN u.id is null THEN false ELSE true END) FROM Usuario u WHERE u.id = (:id)")
-	public boolean validarUsuario(@Param("id") Long id);
+	@Query("SELECT DISTINCT COUNT(u.id) FROM Usuario u WHERE u.id = (:id)")
+	public Integer validarUsuario(@Param("id") Long id);
 
 }

@@ -1,5 +1,6 @@
 package com.desafio.digitounico.services;
 
+import java.security.GeneralSecurityException;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,12 @@ public class UsuarioService extends AbstractService<Usuario, UsuarioDTO, Long> {
 			return Boolean.FALSE;
 		}
 		log.debug(">> validarUsuario [id={}] ", id);
-		boolean result = repository.validarUsuario(id);
+		boolean result = repository.validarUsuario(id) > 0;
 		log.debug(">> validarUsuario [id={}] ", id);
 		return result;
 	}
 
-	public UsuarioDTO criptografar(Long id) {
+	public UsuarioDTO criptografar(Long id) throws GeneralSecurityException {
 		log.debug(">> criptografar [id={}] ", id);
 		Usuario usuario = getRepository().findById(id).orElse(null);
 		Usuario usuarioCriptografado = getRepository().save(CriptografiaUtils.criptografar(usuario));
